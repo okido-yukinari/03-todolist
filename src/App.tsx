@@ -31,6 +31,10 @@ function App() {
     }
   };
 
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   return (
     <Container maxWidth="lg">
       <Box>
@@ -48,9 +52,13 @@ function App() {
         <List>
           {tasks.map((task) => (
             <ListItem>
-              <Checkbox checked={task.completed} />
+              <Checkbox />
               <ListItemText primary={task.task} />
-              <IconButton edge="end" aria-label="delete">
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => deleteTask(task.id)}
+              >
                 <DeleteIcon />
               </IconButton>
             </ListItem>
