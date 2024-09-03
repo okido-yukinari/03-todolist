@@ -13,7 +13,7 @@ import { useState } from "react";
 
 interface Task {
   id: number;
-  task: string;
+  text: string;
   completed: boolean;
 }
 
@@ -25,7 +25,7 @@ function App() {
     if (newTask.trim() !== "") {
       setTasks([
         ...tasks,
-        { id: tasks.length, task: newTask.trim(), completed: false },
+        { id: tasks.length, text: newTask.trim(), completed: false },
       ]);
       setNewTask("");
     }
@@ -33,6 +33,16 @@ function App() {
 
   const deleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const toggleTask = (id: number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { id: task.id, text: task.text, completed: !task.completed }
+          : task
+      )
+    );
   };
 
   return (
@@ -51,9 +61,18 @@ function App() {
         </Button>
         <List>
           {tasks.map((task) => (
-            <ListItem>
-              <Checkbox />
-              <ListItemText primary={task.task} />
+            <ListItem key={task.id}>
+              <Checkbox
+                checked={task.completed}
+                onClick={() => toggleTask(task.id)}
+              />
+              <ListItemText
+                primary={task.text}
+                sx={{
+                  textDecoration: task.completed ? "line-through" : "none",
+                  color: task.completed ? "text.secondary" : "text.primary",
+                }}
+              />
               <IconButton
                 edge="end"
                 aria-label="delete"
