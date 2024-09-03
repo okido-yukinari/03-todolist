@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
 import { useState } from "react";
 
 interface Task {
@@ -46,19 +47,39 @@ function App() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box>
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Card sx={{ maxWidth: 345, width: "90%", padding: "20px 0" }}>
         <Typography variant="h3" component="h1" align="center">
           TODO
         </Typography>
-        <TextField
-          label="今日やることを入力"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-        />
-        <Button variant="contained" onClick={addTask}>
-          add
-        </Button>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "90%",
+            margin: "15px auto 0",
+          }}
+        >
+          <TextField
+            label="今日やることを入力"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+          />
+          <Button variant="contained" onClick={addTask}>
+            add
+          </Button>
+        </Box>
+
         <List>
           {tasks.map((task) => (
             <ListItem key={task.id}>
@@ -83,7 +104,7 @@ function App() {
             </ListItem>
           ))}
         </List>
-      </Box>
+      </Card>
     </Container>
   );
 }
