@@ -74,6 +74,7 @@ function App() {
             label="今日やることを入力"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
+            sx={{ width: "70%" }}
           />
           <Button variant="contained" onClick={addTask}>
             add
